@@ -2,15 +2,47 @@ import { Link } from "react-router-dom";
 import loginBg from "../assets/image/login-bg.jpg"
 import logo from "../assets/image/ElectroEvo-logo.png"
 import { AiOutlineGoogle } from "react-icons/ai";
+import { useContext } from "react";
+import { AuthContext } from "../Context/Context";
+import Swal from "sweetalert2";
 const Login = () => {
-
+    let {loginUser, googleLogIn} = useContext(AuthContext)
     let handleSignIn = (e) => {
         e.preventDefault()
         let form = e.target
         let email = form.email.value
         let password = form.password.value
         console.log(email, password)
+        loginUser(email, password)
+        .then(result => {
+            console.log(result.user)
+            form.reset()
+                Swal.fire({
+                    title: 'Success',
+                    text: 'User Added Successfully',
+                    icon: 'success',
+                    confirmButtonText: 'Cool'
+                  })
+        })
+        .catch(error => {
+            console.log(error.message);
+            Swal.fire({
+                title: 'Error',
+                text: 'User is not available',
+                icon: 'error',
+                confirmButtonText: 'close'
+              })
+        });
 
+    }
+    let  handleGoogleLogIn = () => {
+        googleLogIn()
+        .then((result) => {
+            console.log(result.user)
+        })
+        .catch((error) => {
+            console.log(error)
+        });
     }
 
     return (
@@ -19,7 +51,7 @@ const Login = () => {
                 <div className="hero-overlay bg-gradient-to-r from-[#151515] to-[rgb(21,21,21,0) py-60 md:py-80"></div>
                 <div className=" w-[95%] md:w-[85%] mx-auto text-neutral-content">
                     <div className="md:w-[60%] lg:w-[42%] mx-auto">
-                        <section className=" backdrop-blur-lg my-14 py-10 border-gray-500 border-2 rounded-2xl">
+                        <section className=" backdrop-blur-xl my-14 py-10 border-gray-500 border-2 rounded-2xl">
                             <div className="px-6 mx-auto flex flex-col justify-center items-center">
                                 <form onSubmit={handleSignIn} className="w-full max-w-md">
                                     <div className="flex justify-center mx-auto">
@@ -61,7 +93,7 @@ const Login = () => {
                                 </form>
                                 <div className="w-[80%] mx-auto">
                                       <p className="text-center mt-3">____________or____________</p>
-                                      <button className="btn btn-outline border-gray-600 border-2 rounded-3xl w-full mt-3 text-white"><AiOutlineGoogle className="text-[30px]" /> Continue with Google</button>
+                                      <button onClick={handleGoogleLogIn} className="btn btn-outline border-gray-600 border-2 rounded-3xl w-full mt-3 text-white"><AiOutlineGoogle className="text-[30px]" /> Continue with Google</button>
                                       <div className="mt-4 text-center ">
                                         <p className="text-sm">
                                             Do not have an account? <Link to='/signup' className="underline text-[steelblue]">Sign Up</Link>

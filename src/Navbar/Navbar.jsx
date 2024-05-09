@@ -1,6 +1,20 @@
 import { Link } from "react-router-dom";
 import logo from "../assets/image/ElectroEvo-logo.png"
+import { useContext } from "react";
+import { AuthContext } from "../Context/Context";
+import userImg from "../assets/image/user.avif"
 const Navbar = () => {
+    let { user, userLogOut } = useContext(AuthContext)
+    let handleLogOut = () => {
+        userLogOut()
+            .then(() => {
+                console.log("user Log out")
+            })
+            .catch((error) => {
+                console.log(error)
+            });
+
+    }
     return (
         <div className="bg-[#135D66] text-white">
             <div className="navbar w-[95%] md:max-w-7xl mx-auto">
@@ -24,13 +38,23 @@ const Navbar = () => {
                     <a className=""><img className="w-[90px]" src={logo} alt="" /></a>
                 </div>
                 <div className="navbar-end">
-                <div className="navbar-center hidden lg:flex mr-5">
-                <ul className="menu menu-horizontal px-1 gap-5">
-                        <Link to="/">Home</Link>
-                        <Link to="/login">Login</Link>
-                    </ul>
-                </div>
-                    <a className="btn">Button</a>
+                    <div className="navbar-center hidden lg:flex mr-5">
+                        <ul className="menu menu-horizontal px-1 gap-5">
+                            <Link to="/">Home</Link>
+                            <Link to="/login" className={user ? "hidden" : ""}>Login</Link>
+                            <button className={!user ? "hidden" : ""} onClick={handleLogOut}>Log Out</button>
+                        </ul>
+                    </div>
+                    {
+                    user && <div className="w-10 h-10">
+                        <div className="dropdown dropdown-hover dropdown-end">
+                            <div tabIndex={0} role="button" className=""><img className="rounded-full" src={user.photoURL ? user.photoURL : userImg} alt="" /></div>
+                            <ul tabIndex={0} className="dropdown-content z-[10] menu p-2 shadow  rounded-box w-52 bg-black">
+                                <li><a>{user.displayName}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                }
                 </div>
             </div >
         </div >

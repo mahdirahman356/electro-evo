@@ -1,17 +1,57 @@
 import { Link } from "react-router-dom";
 import loginBg from "../assets/image/login-bg.jpg"
 import logo from "../assets/image/ElectroEvo-logo.png"
-import { AiOutlineGoogle } from "react-icons/ai";
+import { useContext } from "react";
+import { AuthContext } from "../Context/Context";
+import Swal from "sweetalert2";
 const SignUp = () => {
-
+    let { createAccount, userUpdate } = useContext(AuthContext)
     let handleSignUp = (e) => {
-        e.preventDefault()
-        let form = e.target
-        let email = form.email.value
-        let password = form.password.value
-        let name = form.name.value
-        let photoURL = form.photoURL.value
-        console.log(email, password, name, photoURL)
+        e.preventDefault();
+        let form = e.target;
+        let email = form.email.value;
+        let password = form.password.value;
+        let name = form.name.value;
+        let photoURL = form.photoURL.value;
+        console.log(name, photoURL, email, password);
+
+        if (password.length < 6) {
+            Swal.fire({
+                title: 'Error',
+                text: 'Password should be at least 6 characters',
+                icon: 'error',
+                confirmButtonText: 'close'
+            })
+            return
+        }
+
+        createAccount(email, password)
+            .then(result => {
+                console.log(result.user);
+                form.reset()
+                Swal.fire({
+                    title: 'Success',
+                    text: 'User Created Successfully',
+                    icon: 'success',
+                    confirmButtonText: 'Cool'
+                })
+                userUpdate(name, photoURL)
+                    .then(() => {
+                        console.log("user updated");
+                    })
+                    .catch(error => {
+                        console.log(error.message);
+                    });
+            })
+            .catch(error => {
+                console.log(error.message);
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Email already in use',
+                    icon: 'error',
+                    confirmButtonText: 'close'
+                })
+            });
 
     }
     return (
@@ -20,7 +60,7 @@ const SignUp = () => {
                 <div className="hero-overlay bg-gradient-to-r from-[#151515] to-[rgb(21,21,21,0) py-60 md:py-80"></div>
                 <div className=" w-[95%] md:w-[85%] mx-auto text-neutral-content">
                     <div className="md:w-[60%] lg:w-[45%] mx-auto">
-                        <section className=" backdrop-blur-sm my-14 py-10 border-gray-500 border-2 rounded-2xl">
+                        <section className=" backdrop-blur-xl my-14 py-10 border-gray-500 border-2 rounded-2xl">
                             <div className="container flex flex-col items-center justify-center px-6 mx-auto">
                                 <form onSubmit={handleSignUp} className="w-full max-w-md">
                                     <div className="flex justify-center mx-auto">
@@ -66,7 +106,8 @@ const SignUp = () => {
                                         <input type="email"
                                             name="email"
                                             className="w-full rounded-3xl py-3 bg-[#15151503]  border-2 text-white px-11 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                                            placeholder="Email" />
+                                            placeholder="Email"
+                                            required />
                                     </div>
                                     {/* password */}
                                     <div className="relative flex items-center mt-8">
@@ -79,22 +120,19 @@ const SignUp = () => {
                                             type="password"
                                             name="password"
                                             className="w-full rounded-3xl py-3 bg-[#15151503]  border-2 text-white px-11 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                                            placeholder="Password" />
+                                            placeholder="Password"
+                                            required />
                                     </div>
                                     {/* submit */}
                                     <div className="mt-6">
                                         <input className="btn w-full bg-[#3d3735] text-white border-none rounded-3xl" type="submit" value="Sign up" />
                                     </div>
+                                    <div className="mt-6 text-center ">
+                                        <p className="text-sm">
+                                            Already have an account? <Link to="/login" className="underline text-[steelblue]">Login</Link>
+                                        </p>
+                                    </div>
                                 </form>
-                                <div className="w-[80%] mx-auto">
-                                      <p className="text-center mt-3">____________or____________</p>
-                                      <button className="btn btn-outline border-gray-600 border-2 rounded-3xl w-full mt-3 text-white"><AiOutlineGoogle className="text-[30px]" /> Continue with Google</button>
-                                      <div className="mt-6 text-center ">
-                                            <p className="text-sm">
-                                                Already have an account? <Link to="/login" className="underline text-[steelblue]">Login</Link>
-                                            </p>
-                                        </div>
-                                   </div>
                             </div>
                         </section>
                     </div>
