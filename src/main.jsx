@@ -5,11 +5,29 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import './index.css'
+import MainRoute from './MainRoute/MainRoute';
+import Home from './Components/Home';
+import Login from './Components/Login';
+import SignUp from './Components/SignUp';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <div>Hello world!</div>,
+    element: <MainRoute></MainRoute>,
+    children: [
+      {
+        path:"/",
+        element:<Home></Home>
+      },
+      {
+        path:"/login",
+        element:<Login></Login>
+      },
+      {
+        path:"/signup",
+        element:<SignUp></SignUp>
+      }
+    ]
   },
 ]);
 
