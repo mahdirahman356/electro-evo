@@ -1,4 +1,4 @@
-import loginBg from "../assets/image/primary-bg.jpg"
+import primaryBG from "../assets/image/primary-bg.jpg"
 import logo from "../assets/image/ElectroEvo-logo.png"
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
@@ -26,7 +26,7 @@ const AddQueries = () => {
         let productBrand = form.productBrand.value
         let queryTitle = form.queryTitle.value
         let boycottingDetails = form.boycottingDetails.value
-        let imageURL = form.productName.value
+        let imageURL = form.imageURL.value
         let queries = {productBrand, productName, queryTitle, boycottingDetails, imageURL,DateTime, recommendationCount: 0, email: user.email, name: user.displayName, userImge: user.photoURL}
         console.log(queries)
         axios.post('http://localhost:5000/queries', queries)
@@ -46,7 +46,7 @@ const AddQueries = () => {
     }
     return (
         <div>
-            <div className="hero bg-cover bg-center" style={{ backgroundImage: `url(${loginBg})` }}>
+            <div className="hero bg-cover bg-center" style={{ backgroundImage: `url(${primaryBG})` }}>
                 <div className="hero-overlay bg-gradient-to-r from-[#151515] to-[rgb(21,21,21,0) py-60 md:py-80"></div>
                 <div className=" w-[95%] md:w-[85%] mx-auto text-neutral-content">
                     <div className="">

@@ -14,6 +14,8 @@ import ErrorRoute from './ErrorRoute/ErrorRoute';
 import MyQueries from './Components/MyQueries';
 import PrivetRoute from './PrivetRoute/PrivetRoute';
 import AddQueries from './Components/AddQueries';
+import UpdateQueries from './Components/UpdateQueries';
+import QuerieDetails from './Components/QuerieDetails';
 
 const router = createBrowserRouter([
   {
@@ -35,11 +37,22 @@ const router = createBrowserRouter([
       },
       {
         path:"/my-queries",
+        // loader: ({params}) => fetch(`http://localhost:5000/queries?email=${params.email}`),
         element:<PrivetRoute><MyQueries></MyQueries></PrivetRoute>
       },
       {
         path:"/add-queries",
-        element:<AddQueries></AddQueries>
+        element:<PrivetRoute><AddQueries></AddQueries></PrivetRoute>
+      },
+      {
+        path:"/update-queries/:id",
+        loader: ({params}) => fetch(`http://localhost:5000/queries/${params.id}`),
+        element:<UpdateQueries></UpdateQueries>
+      },
+      {
+        path:"/querie-details/:id",
+        loader: ({params}) => fetch(`http://localhost:5000/queries/${params.id}`),
+        element:<QuerieDetails></QuerieDetails>
       }
     ]
   },

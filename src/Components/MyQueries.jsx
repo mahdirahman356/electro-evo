@@ -1,7 +1,55 @@
 import { Link } from "react-router-dom";
 import primaryBG from "../assets/image/primary-bg.jpg"
+import { useContext, useEffect, useState } from "react";
+import axios from "axios";
+import { AuthContext } from "../Context/Context";
+import Swal from "sweetalert2";
+import { IoMdEye } from "react-icons/io";
+import { HiPencil } from "react-icons/hi";
+import { MdDelete } from "react-icons/md";
+// import MyQueriesCaed from "./MyQueriesCaed";
 
 const MyQueries = () => {
+    let {user} = useContext(AuthContext)
+    let [queries, setQueries] = useState([])
+
+    useEffect(() => {
+     axios.get(`http://localhost:5000/queries?email=${user?.email}`)
+     .then(res => {
+        setQueries(res.data)
+     })
+    },[])
+
+    let handleDelete = (id) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`http://localhost:5000/queries/${id}`, {
+                    method: "DELETE"
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data)
+                        if(data.deletedCount > 0) {
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your file has been deleted.",
+                                icon: "success"
+                              });
+                              let DeleteCard = queries.filter(tourist => tourist._id !== id)
+                              setQueries(DeleteCard)
+                        }
+                    })
+            }
+        });
+    }
     return (
         <div>
             <div className="hero bg-cover bg-center w-[95%] md:w-[85%] mx-auto my-12 rounded-3xl" style={{ backgroundImage: `url(${primaryBG})` }}>
@@ -15,6 +63,25 @@ const MyQueries = () => {
                         </div> 
                     </div>
                 </div>
+
+              <div className="w-[95%] md:w-[85%] mx-auto my-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {
+                    queries.map((queries, index) =>  <div key={index}>
+                    <div className="card h-full bg-base-100 shadow-xl">
+                        <figure><img src={queries.imageURL} alt="Shoes" /></figure>
+                        <div className="card-body">
+                            <h2 className="card-title underline">{queries.productName}:</h2>
+                            <h2 className="card-title">{queries.queryTitle}</h2>
+                            <p className='font-semibold'>Brand: <span className='font-normal'>{queries.productBrand}</span></p>
+                            <div className="card-actions justify-end">
+                                <Link to={`/querie-details/${queries._id}`}><button className="btn text-white bg-[#135D66] rounded-full border-none"><IoMdEye className='text-[20px] text-white' /></button></Link>
+                                <Link to={`/update-queries/${queries._id}`}><button className="btn text-white bg-[#135D66] rounded-full border-none"><HiPencil className='text-[20px] text-white' /></button></Link>
+                                <button onClick={() => handleDelete(queries._id)} className="btn bg-[#EA4744] rounded-full border-none"><MdDelete className='text-[20px] text-white' /></button>                    </div>
+                        </div>
+                    </div>
+                </div>)
+                }
+            </div>  
         </div>
     );
 };
