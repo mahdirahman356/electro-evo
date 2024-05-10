@@ -16,6 +16,7 @@ import PrivetRoute from './PrivetRoute/PrivetRoute';
 import AddQueries from './Components/AddQueries';
 import UpdateQueries from './Components/UpdateQueries';
 import QuerieDetails from './Components/QuerieDetails';
+import Queries from './Components/Queries';
 
 const router = createBrowserRouter([
   {
@@ -37,7 +38,6 @@ const router = createBrowserRouter([
       },
       {
         path:"/my-queries",
-        // loader: ({params}) => fetch(`http://localhost:5000/queries?email=${params.email}`),
         element:<PrivetRoute><MyQueries></MyQueries></PrivetRoute>
       },
       {
@@ -53,6 +53,10 @@ const router = createBrowserRouter([
         path:"/querie-details/:id",
         loader: ({params}) => fetch(`http://localhost:5000/queries/${params.id}`),
         element:<QuerieDetails></QuerieDetails>
+      },
+      {
+        path:"/queries",
+        element:<Queries></Queries>
       }
     ]
   },
