@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import loginBg from "../assets/image/login-bg.jpg"
+import loginBg from "../assets/image/primary-bg.jpg"
 import logo from "../assets/image/ElectroEvo-logo.png"
 import { useContext } from "react";
 import { AuthContext } from "../Context/Context";

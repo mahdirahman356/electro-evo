@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import loginBg from "../assets/image/login-bg.jpg"
+import loginBg from "../assets/image/primary-bg.jpg"
 import logo from "../assets/image/ElectroEvo-logo.png"
 import { AiOutlineGoogle } from "react-icons/ai";
 import { useContext } from "react";
@@ -71,7 +71,8 @@ const Login = () => {
                                         <input type="email"
                                          name="email"
                                          className="w-full rounded-3xl py-3 bg-[#15151503]  border-2 text-white px-11 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" 
-                                         placeholder="Email" />
+                                         placeholder="Email" 
+                                         required/>
                                     </div>
                                     {/* password */}
                                     <div className="relative flex items-center mt-8">
@@ -84,7 +85,8 @@ const Login = () => {
                                          type="password" 
                                          name="password"
                                          className="w-full rounded-3xl py-3 bg-[#15151503]  border-2 text-white px-11 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" 
-                                         placeholder="Password" />
+                                         placeholder="Password" 
+                                         required/>
                                     </div>
                                     {/* submit */}
                                     <div className="mt-6">

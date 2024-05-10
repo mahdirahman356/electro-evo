@@ -11,6 +11,9 @@ import Login from './Components/Login';
 import SignUp from './Components/SignUp';
 import Context from './Context/Context';
 import ErrorRoute from './ErrorRoute/ErrorRoute';
+import MyQueries from './Components/MyQueries';
+import PrivetRoute from './PrivetRoute/PrivetRoute';
+import AddQueries from './Components/AddQueries';
 
 const router = createBrowserRouter([
   {
@@ -29,6 +32,14 @@ const router = createBrowserRouter([
       {
         path:"/signup",
         element:<SignUp></SignUp>
+      },
+      {
+        path:"/my-queries",
+        element:<PrivetRoute><MyQueries></MyQueries></PrivetRoute>
+      },
+      {
+        path:"/add-queries",
+        element:<AddQueries></AddQueries>
       }
     ]
   },

@@ -41,6 +41,7 @@ const Navbar = () => {
                     <div className="navbar-center hidden lg:flex mr-5">
                         <ul className="menu menu-horizontal px-1 gap-5">
                             <Link to="/">Home</Link>
+                            <Link to="/my-queries" className={!user ? "hidden" : ""}>My Queries</Link>
                             <Link to="/login" className={user ? "hidden" : ""}>Login</Link>
                             <button className={!user ? "hidden" : ""} onClick={handleLogOut}>Log Out</button>
                         </ul>

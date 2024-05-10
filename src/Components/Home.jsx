@@ -1,10 +1,10 @@
 import Header from "../Header/Header";
+import Slider from "../Slider/Slider";
 
 const Home = () => {
-    console.log(import.meta.env.VITE_APIKEY)
-
     return (
         <div>
+            <Slider></Slider>
             <Header></Header>
         </div>
     );
