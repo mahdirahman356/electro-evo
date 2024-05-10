@@ -97,7 +97,8 @@ const MyQueries = () => {
                             </div>
                         </div>)
                     }
-                </div>}
+                </div>
+                }
 
 
         </div>

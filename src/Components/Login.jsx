@@ -39,6 +39,12 @@ const Login = () => {
         googleLogIn()
         .then((result) => {
             console.log(result.user)
+            Swal.fire({
+                title: 'Success',
+                text: 'User Added Successfully',
+                icon: 'success',
+                confirmButtonText: 'Cool'
+              })
         })
         .catch((error) => {
             console.log(error)
