@@ -50,7 +50,7 @@ const Navbar = () => {
                     user && <div className="w-10 h-10">
                         <div className="dropdown dropdown-hover dropdown-end">
                             <div tabIndex={0} role="button" className=""><img className="rounded-full" src={user.photoURL ? user.photoURL : userImg} alt="" /></div>
-                            <ul tabIndex={0} className="dropdown-content z-[10] menu p-2 shadow  rounded-box w-52 bg-black">
+                            <ul tabIndex={0} className={!user.displayName ? `hidden` : `dropdown-content z-[10] menu p-2 shadow  rounded-box w-52 bg-black`}>
                                 <li><a>{user.displayName}</a></li>
                             </ul>
                         </div>
