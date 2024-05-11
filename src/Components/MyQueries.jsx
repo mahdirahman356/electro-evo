@@ -41,7 +41,7 @@ const MyQueries = () => {
                         if (data.deletedCount > 0) {
                             Swal.fire({
                                 title: "Deleted!",
-                                text: "Your file has been deleted.",
+                                text: "Your Product has been deleted.",
                                 icon: "success"
                             });
                             let DeleteCard = queries.filter(tourist => tourist._id !== id)

@@ -2,17 +2,49 @@ import { useContext, useEffect, useState } from "react";
 import primaryBG from "../assets/image/primary-bg.jpg"
 import axios from "axios";
 import { AuthContext } from "../Context/Context";
+import Swal from "sweetalert2";
 
 const Myrecommendations = () => {
     let { user } = useContext(AuthContext)
     let [recommend, setRecommend] = useState([])
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/recommend?email=${user.email}`)
+        axios.get(`http://localhost:5000/recommend/myRecommrnd/${user.email}`)
             .then(res => {
                 setRecommend(res.data)
             })
     }, [])
+
+    let handleDelete = (id) => {
+        console.log(id)
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`http://localhost:5000/recommend/${id}`, {
+                    method: "DELETE"
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.deletedCount > 0) {
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your recommend has been deleted.",
+                                icon: "success"
+                            });
+                            let DeleteCard = recommend.filter(tourist => tourist._id !== id)
+                            setRecommend(DeleteCard)
+                        }
+                    })
+            }
+        });
+    }
 
     return (
         <div>
@@ -30,11 +62,7 @@ const Myrecommendations = () => {
                         {/* head */}
                         <thead>
                             <tr>
-                                <th>
-                                    <label>
-                                        <input type="checkbox" className="checkbox" />
-                                    </label>
-                                </th>
+                                <th>Actions</th>
                                 <th>Recommendedtion Product</th>
                                 <th>Recommended Product Name</th>
                                 <th>Recommendetion For</th>
@@ -46,9 +74,9 @@ const Myrecommendations = () => {
                             {/* row 1 */}
                             {recommend.map((recom, index) => <tr key={index}>
                                 <th>
-                                    <label>
-                                        <input type="checkbox" className="checkbox" />
-                                    </label>
+                                    <button onClick={() => handleDelete(recom._id)} className="btn btn-circle btn-sm">
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                                    </button>
                                 </th>
                                 <td>
                                     <div className="flex items-center gap-3">
@@ -62,7 +90,7 @@ const Myrecommendations = () => {
                                 <td>
                                     <span className="">{recom.recomProductName}</span>
                                 </td>
-                               
+
                                 <td>
                                     <div className="flex items-center gap-3">
                                         <div className="avatar">
