@@ -62,7 +62,10 @@ const Recommend = () => {
             .then(res => {
                 setRecommend(res.data)
             })
-    }, [])
+            .catch(error => {
+                console.error('Error fetching recommendations:', error);
+            });
+    }, [_id])
 
     return (
         <div className="flex flex-col lg:flex-row justify-between gap-6 md:w-[95%] w-[90%] mx-auto my-14">
