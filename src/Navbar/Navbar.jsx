@@ -42,6 +42,8 @@ const Navbar = () => {
                         <ul className="menu menu-horizontal px-1 gap-5">
                             <Link to="/">Home</Link>
                             <Link to="/queries">Queries</Link>
+                            <Link to={`/RCDForMe`} className={!user ? "hidden" : ""}>Recommendations For Me</Link>
+                            <Link to={`/myRCD`} className={!user ? "hidden" : ""}>My recommendations</Link>
                             <Link to={`/my-queries`} className={!user ? "hidden" : ""}>My Queries</Link>
                             <Link to="/login" className={user ? "hidden" : ""}>Login</Link>
                             <button className={!user ? "hidden" : ""} onClick={handleLogOut}>Log Out</button>
@@ -50,7 +52,7 @@ const Navbar = () => {
                     {
                     user && <div className="w-10 h-10">
                         <div className="dropdown dropdown-hover dropdown-end">
-                            <div tabIndex={0} role="button" className=""><img className="rounded-full" src={user.photoURL ? user.photoURL : userImg} alt="" /></div>
+                            <div tabIndex={0} role="button" className="w-10 h-10"><img className="rounded-full" src={user.photoURL ? user.photoURL : userImg} alt="" /></div>
                             <ul tabIndex={0} className={!user.displayName ? `hidden` : `dropdown-content z-[10] menu p-2 shadow  rounded-box w-52 bg-black`}>
                                 <li><a>{user.displayName}</a></li>
                             </ul>

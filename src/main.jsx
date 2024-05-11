@@ -17,6 +17,9 @@ import AddQueries from './Components/AddQueries';
 import UpdateQueries from './Components/UpdateQueries';
 import QuerieDetails from './Components/QuerieDetails';
 import Queries from './Components/Queries';
+import Recommend from './Components/Recommend';
+import RecommendationsForMe from './Components/RecommendationsForMe';
+import Myrecommendations from './Components/Myrecommendations';
 
 const router = createBrowserRouter([
   {
@@ -57,6 +60,19 @@ const router = createBrowserRouter([
       {
         path:"/queries",
         element:<Queries></Queries>
+      },
+      {
+        path:"/recommend/:id",
+        loader: ({params}) => fetch(`http://localhost:5000/queries/${params.id}`),
+        element:<Recommend></Recommend>
+      },
+      {
+        path:"/RCDForMe",
+        element:<RecommendationsForMe></RecommendationsForMe>
+      },
+      {
+        path:"/myRCD",
+        element:<Myrecommendations></Myrecommendations>
       }
     ]
   },
