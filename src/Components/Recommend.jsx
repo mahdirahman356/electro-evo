@@ -1,9 +1,35 @@
+import { useContext, useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
+import { AuthContext } from "../Context/Context";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const Recommend = () => {
     let queries = useLoaderData()
-    let { productBrand, productName, queryTitle, boycottingDetails, imageURL, DateTime, recommendationCount, name, userImge } = queries
+    let { user } = useContext(AuthContext)
+    let { _id, productBrand, productName, queryTitle, boycottingDetails, imageURL, DateTime, recommendationCount, name, email, userImge } = queries
+    const [currentDateTime, setCurrentDateTime] = useState(new Date());
+    const [updatedRecommendationCount, setUpdatedRecommendationCount] = useState(recommendationCount)
 
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentDateTime(new Date());
+        }, 1000);
+        return () => clearInterval(interval);
+    }, []);
+
+    const TimeStamp = currentDateTime.toLocaleString();
+    const updateRecommendationCount = async (queryId) => {
+        try {
+            const response = await axios.patch(`http://localhost:5000/queries/${queryId}`, {
+                recommendationCount: recommendationCount + 1 
+            });
+            console.log('Recommendation count updated:', response.data);
+        } catch (error) {
+            console.error('Error updating recommendation count:', error);
+        }
+    };
     let handleRecommend = (e) => {
         e.preventDefault()
         let form = e.target
@@ -11,7 +37,23 @@ const Recommend = () => {
         let recomProductName = form.recomProductName.value
         let recomProductImage = form.recomProductImage.value
         let recomReason = form.recomReason.value
-        console.log(recomProductName, recomTitle, recomProductImage, recomReason)
+        let recommend = { queriesId: _id, recomProductName, recomTitle, recomProductImage, recomReason, queryTitle, productName, name, email, TimeStamp, recommendationEmail: user.email, recommendationName: user.displayName }
+        console.log(recommend)
+        axios.post('http://localhost:5000/recommend', recommend)
+            .then(res => {
+                console.log(res.data)
+                if (res.data.acknowledged === true) {
+                    updateRecommendationCount(_id)
+                    setUpdatedRecommendationCount(updatedRecommendationCount + 1);
+                    form.reset()
+                    Swal.fire({
+                        title: 'Success',
+                        text: 'Recommendation Added successfully',
+                        icon: 'success',
+                        confirmButtonText: 'Cool'
+                    })
+                }
+            })
     }
 
     return (
@@ -35,7 +77,7 @@ const Recommend = () => {
                                         <a href="#" className="mx-2 font-semibold " tabIndex={"0"} role="link">{name}</a>
                                         <span className="mx-2 text-xs">{DateTime}</span>
                                     </div>
-                                    <p className="mx-2 text-xs md:text-sm">Recommendation: {recommendationCount}</p>
+                                    <p className="mx-2 text-xs md:text-sm">Recommendation: {updatedRecommendationCount}</p>
                                 </div>
                             </div>
                         </div>
@@ -68,8 +110,8 @@ const Recommend = () => {
                                 required />
                         </div>
 
-                         {/* Recommended product Image */}
-                         <div className="relative flex flex-col mt-8">
+                        {/* Recommended product Image */}
+                        <div className="relative flex flex-col mt-8">
                             <p className="mx-4 font-semibold mb-2">Recommended Product Image</p>
                             <input type="text"
                                 name="recomProductImage"
@@ -77,8 +119,8 @@ const Recommend = () => {
                                 placeholder="Recommended Product Image"
                                 required />
                         </div>
-                         {/* Recommendation reason */}
-                         <div className="relative flex flex-col mt-8">
+                        {/* Recommendation reason */}
+                        <div className="relative flex flex-col mt-8">
                             <p className="mx-4 font-semibold mb-2">Recommendation Reason</p>
                             <input type="text"
                                 name="recomReason"
