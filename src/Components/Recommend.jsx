@@ -37,7 +37,7 @@ const Recommend = () => {
         let recomProductName = form.recomProductName.value
         let recomProductImage = form.recomProductImage.value
         let recomReason = form.recomReason.value
-        let recommend = { queriesId: _id, recomProductName, recomTitle, recomProductImage, recomReason, queryTitle, productName, name, email, TimeStamp, recommendationEmail: user.email, recommendationName: user.displayName }
+        let recommend = { queriesId: _id, recomProductName, authURL: userImge, recomTitle, recomProductImage, recomReason, queryTitle, productName, name, email, TimeStamp, recommendationEmail: user.email, recommendationName: user.displayName, recommendationAuthURL: user.photoURL}
         console.log(recommend)
         axios.post('http://localhost:5000/recommend', recommend)
             .then(res => {

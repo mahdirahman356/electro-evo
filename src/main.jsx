@@ -72,7 +72,7 @@ const router = createBrowserRouter([
       },
       {
         path:"/myRCD",
-        element:<Myrecommendations></Myrecommendations>
+        element:<PrivetRoute><Myrecommendations></Myrecommendations></PrivetRoute>
       }
     ]
   },
