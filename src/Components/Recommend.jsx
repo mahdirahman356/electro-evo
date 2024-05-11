@@ -23,7 +23,7 @@ const Recommend = () => {
     const updateRecommendationCount = async (queryId) => {
         try {
             const response = await axios.patch(`http://localhost:5000/queries/${queryId}`, {
-                recommendationCount: recommendationCount + 1 
+                recommendationCount: recommendationCount + 1
             });
             console.log('Recommendation count updated:', response.data);
         } catch (error) {
@@ -37,7 +37,7 @@ const Recommend = () => {
         let recomProductName = form.recomProductName.value
         let recomProductImage = form.recomProductImage.value
         let recomReason = form.recomReason.value
-        let recommend = { queriesId: _id, recomProductName, authURL: userImge, recomTitle, recomProductImage, recomReason, queryTitle, productName, name, email, TimeStamp, recommendationEmail: user.email, recommendationName: user.displayName, recommendationAuthURL: user.photoURL}
+        let recommend = { queriesId: _id, recomProductName, authURL: userImge, recomTitle, recomProductImage, recomReason, queryTitle, productName, name, email, TimeStamp, recommendationEmail: user.email, recommendationName: user.displayName, recommendationAuthURL: user.photoURL }
         console.log(recommend)
         axios.post('http://localhost:5000/recommend', recommend)
             .then(res => {
@@ -55,6 +55,14 @@ const Recommend = () => {
                 }
             })
     }
+
+    let [recommend, setRecommend] = useState([])
+    useEffect(() => {
+        axios.get(`http://localhost:5000/recommend/${_id}`)
+            .then(res => {
+                setRecommend(res.data)
+            })
+    }, [])
 
     return (
         <div className="flex flex-col lg:flex-row justify-between gap-6 md:w-[95%] w-[90%] mx-auto my-14">
@@ -83,6 +91,30 @@ const Recommend = () => {
                         </div>
                     </div>
                 </div>
+                
+             {recommend.map((recom, index) =>
+                 <div key={index} className="chat chat-end p-6">
+                 <div className="chat-image avatar">
+                   <div className="w-10 rounded-full">
+                     <img alt="Tailwind CSS chat bubble component" src={recom.recommendationAuthURL} />
+                   </div>
+                 </div>
+                 <div className="chat-header flex items-center flex-col md:flex-row">
+                   <span className="md:mr-2 text-end">{recom.recommendationName}</span>
+                  <time className="text-xs opacity-50">{recom.TimeStamp}</time>
+                 </div>
+                 <div className="chat-bubble bg-gray-100 text-gray-500">
+                    <p className="text-gray-800 font-semibold">{recom.recomTitle}</p>
+                       {recom.recomReason}
+                    </div>
+                 <div className="chat-footer flex flex-col justify-end items-end">
+                <p>{recom.recomProductName}</p>
+                <div>
+                <img className="h-16 mt-1 rounded-lg" src={recom.recomProductImage} alt="" />
+                </div>
+                 </div>
+               </div>)}
+
             </div>
 
             <section className="backdrop-blur-xl my-14 py-10 border-gray-300 border-[1px] rounded-2xl lg:w-1/2">
