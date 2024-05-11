@@ -72,6 +72,7 @@ const router = createBrowserRouter([
       },
       {
         path:"/myRCD",
+        loader: () => fetch(`http://localhost:5000/queries`),
         element:<PrivetRoute><Myrecommendations></Myrecommendations></PrivetRoute>
       }
     ]

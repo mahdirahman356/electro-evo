@@ -3,8 +3,10 @@ import primaryBG from "../assets/image/primary-bg.jpg"
 import axios from "axios";
 import { AuthContext } from "../Context/Context";
 import Swal from "sweetalert2";
+import { useLoaderData } from "react-router-dom";
 
 const Myrecommendations = () => {
+    let quary = useLoaderData()
     let { user } = useContext(AuthContext)
     let [recommend, setRecommend] = useState([])
 
@@ -15,8 +17,9 @@ const Myrecommendations = () => {
             })
     }, [])
 
-    let handleDelete = (id) => {
+    let handleDelete = (id, queriesId) => {
         console.log(id)
+        console.log(queriesId)
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -40,11 +43,16 @@ const Myrecommendations = () => {
                             });
                             let DeleteCard = recommend.filter(tourist => tourist._id !== id)
                             setRecommend(DeleteCard)
+                            let findId = quary.find(quary => quary._id === queriesId)
+                            console.log(findId)
+                            axios.patch(`http://localhost:5000/queries/${queriesId}`, {
+                                recommendationCount: findId.recommendationCount - 1 
+                            });
                         }
                     })
             }
         });
-    }
+    }      
 
     return (
         <div>
@@ -74,7 +82,7 @@ const Myrecommendations = () => {
                             {/* row 1 */}
                             {recommend.map((recom, index) => <tr key={index}>
                                 <th>
-                                    <button onClick={() => handleDelete(recom._id)} className="btn btn-circle btn-sm">
+                                    <button onClick={() => handleDelete(recom._id, recom.queriesId)} className="btn btn-circle btn-sm">
                                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
                                     </button>
                                 </th>
