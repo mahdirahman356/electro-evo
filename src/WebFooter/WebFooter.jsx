@@ -2,7 +2,7 @@ import { FaFacebook, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 import logo from "../assets/image/ElectroEvo-logo.png"
 const WebFooter = () => {
     return (
-        <div className="bg-gray-900 mt-24">
+        <div className="bg-gray-900">
             <footer className="footer py-10 text-white w-[95%] md:w-[85%] mx-auto">
   <aside>
     <img src={logo} alt="Website Logo" className="h-16 " />

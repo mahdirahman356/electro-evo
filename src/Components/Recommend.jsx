@@ -20,16 +20,7 @@ const Recommend = () => {
     }, []);
 
     const TimeStamp = currentDateTime.toLocaleString();
-    const updateRecommendationCount = async (queryId) => {
-        try {
-            const response = await axios.patch(`http://localhost:5000/queries/${queryId}`, {
-                recommendationCount: recommendationCount + 1
-            });
-            console.log('Recommendation count updated:', response.data);
-        } catch (error) {
-            console.error('Error updating recommendation count:', error);
-        }
-    };
+    
     let handleRecommend = (e) => {
         e.preventDefault()
         let form = e.target
@@ -43,8 +34,11 @@ const Recommend = () => {
             .then(res => {
                 console.log(res.data)
                 if (res.data.acknowledged === true) {
-                    updateRecommendationCount(_id)
-                    setUpdatedRecommendationCount(updatedRecommendationCount + 1);
+                    axios.patch(`http://localhost:5000/queries/${_id}`, {
+                    recommendationCount: recommendationCount + 1})
+                    .then(() => {
+                        setUpdatedRecommendationCount(updatedRecommendationCount + 1)
+                    })
                     form.reset()
                     Swal.fire({
                         title: 'Success',

@@ -1,14 +1,15 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Context/Context";
-import axios from "axios";
 import primaryBG from "../assets/image/primary-bg.jpg"
 import img from "../assets/image/user.avif"
+import axios from "axios";
 const RecommendationsForMe = () => {
     let { user } = useContext(AuthContext)
     let [recommend, setRecommend] = useState([])
 
+
     useEffect(() => {
-        axios.get(`http://localhost:5000/recommend/RecommendForMe/${user.email}`, {withCredentials:true})
+             axios.get(`http://localhost:5000/recommend/RecommendForMe/${user.email}`,{withCredentials:true})
             .then(res => {
                 setRecommend(res.data)
             })

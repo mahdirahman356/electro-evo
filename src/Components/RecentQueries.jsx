@@ -1,7 +1,7 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import userImg from "../assets/image/user.avif"
+import axios from "axios";
 
 const RecentQueries = () => {
     let [recentQueries, setRecentQueries] = useState([])

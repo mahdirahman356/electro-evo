@@ -12,7 +12,6 @@ const Context = ({ children }) => {
     let [user, setUser] = useState(null)
     let [loading, setLoading] = useState(true)
 
-
     let createAccount = (email, password) => {
         setLoading(true)
         return createUserWithEmailAndPassword(auth, email, password)
@@ -34,7 +33,7 @@ const Context = ({ children }) => {
 
     let userLogOut = () => {
         setLoading(true)
-        axios.post("http://localhost:5000/signout", user, {withCredentials: true})  
+        axios.post("http://localhost:5000/signout", user, {withCredentials:true})  
         return signOut(auth)
     }
 

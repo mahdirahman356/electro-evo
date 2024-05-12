@@ -1,22 +1,23 @@
 import { useEffect, useState } from "react";
 import primaryBG from "../assets/image/primary-bg.jpg"
-import axios from "axios";
 import userImg from "../assets/image/user.avif"
 import { Link } from "react-router-dom";
 import { FaChevronDown } from "react-icons/fa";
+import axios from "axios";
 
 
 const Queries = () => {
     let [allQueries, setAllQueries] = useState([])
     let [search, setSearch] = useState("")
     let [layout, setLayout] = useState("grid-cols-3")
+
     useEffect(() => {
         axios.get(`http://localhost:5000/queries?search=${search}`)
             .then(res => {
                 const sortedQueries = res.data.sort((a, b) => new Date(b.DateTime) - new Date(a.DateTime));
                 setAllQueries(sortedQueries);
             })
-    }, [search])
+    }, [])
 
     let handleSearch = (e) => {
         e.preventDefault()

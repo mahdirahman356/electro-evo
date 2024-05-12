@@ -1,13 +1,12 @@
 import primaryBG from "../assets/image/primary-bg.jpg"
 import logo from "../assets/image/ElectroEvo-logo.png"
 import { useLoaderData } from "react-router-dom";
-import axios from "axios";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 const UpdateQueries = () => {
     let queries = useLoaderData()
     let {_id, productName, productBrand, queryTitle, boycottingDetails, imageURL} = queries
-
     let handleUpdate = (e) => {
         e.preventDefault()
         let form = e.target
