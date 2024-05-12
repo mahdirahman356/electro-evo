@@ -4,14 +4,14 @@ import axios from "axios";
 import { AuthContext } from "../Context/Context";
 import Swal from "sweetalert2";
 import { useLoaderData } from "react-router-dom";
-
+import img from "../assets/image/user.avif"
 const Myrecommendations = () => {
     let quary = useLoaderData()
     let { user } = useContext(AuthContext)
     let [recommend, setRecommend] = useState([])
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/recommend/myRecommrnd/${user.email}`)
+        axios.get(`http://localhost:5000/recommend/myRecommrnd/${user.email}`, {withCredentials:true})
             .then(res => {
                 setRecommend(res.data)
             })
@@ -103,7 +103,7 @@ const Myrecommendations = () => {
                                     <div className="flex items-center gap-3">
                                         <div className="avatar">
                                             <div className=" w-10 h-10 rounded-full">
-                                                <img src={recom.authURL} alt="" />
+                                                <img src={recom.authURL ? recom.authURL : img} alt="" />
                                             </div>
                                         </div>
                                         <div>

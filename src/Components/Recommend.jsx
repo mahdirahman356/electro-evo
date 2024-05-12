@@ -3,7 +3,7 @@ import { useLoaderData } from "react-router-dom";
 import { AuthContext } from "../Context/Context";
 import axios from "axios";
 import Swal from "sweetalert2";
-
+import img from "../assets/image/user.avif"
 const Recommend = () => {
     let queries = useLoaderData()
     let { user } = useContext(AuthContext)
@@ -85,7 +85,7 @@ const Recommend = () => {
                     <div className="mt-4">
                         <div className="flex items-center">
                             <div className="flex items-center w-full">
-                                <img className="object-cover h-10 rounded-full" src={userImge} alt="Avatar" />
+                                <img className="object-cover h-10 rounded-full" src={userImge ? userImge : img} alt="Avatar" />
                                 <div className="flex flex-col md:flex-row md:justify-between md:items-center w-full">
                                     <div className="flex flex-col">
                                         <a href="#" className="mx-2 font-semibold " tabIndex={"0"} role="link">{name}</a>
@@ -102,7 +102,7 @@ const Recommend = () => {
                     <div key={index} className="chat chat-end p-6">
                         <div className="chat-image avatar">
                             <div className="w-10 rounded-full">
-                                <img alt="Tailwind CSS chat bubble component" src={recom.recommendationAuthURL} />
+                                <img alt="Tailwind CSS chat bubble component" src={recom.recommendationAuthURL ? recom.recommendationAuthURL : img} />
                             </div>
                         </div>
                         <div className="chat-header flex items-center flex-col md:flex-row">

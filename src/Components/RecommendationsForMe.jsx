@@ -2,13 +2,13 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Context/Context";
 import axios from "axios";
 import primaryBG from "../assets/image/primary-bg.jpg"
-
+import img from "../assets/image/user.avif"
 const RecommendationsForMe = () => {
     let { user } = useContext(AuthContext)
     let [recommend, setRecommend] = useState([])
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/recommend/RecommendForMe/${user.email}`)
+        axios.get(`http://localhost:5000/recommend/RecommendForMe/${user.email}`, {withCredentials:true})
             .then(res => {
                 setRecommend(res.data)
             })
@@ -56,7 +56,7 @@ const RecommendationsForMe = () => {
                                     <div className="flex items-center gap-3">
                                         <div className="avatar">
                                             <div className=" w-10 h-10 rounded-full">
-                                                <img src={recom.recommendationAuthURL} alt="" />
+                                                <img src={recom.recommendationAuthURL ? recom.recommendationAuthURL : img} alt="" />
                                             </div>
                                         </div>
                                         <div>

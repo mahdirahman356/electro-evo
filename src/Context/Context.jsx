@@ -3,6 +3,7 @@ import { createContext, useEffect, useState } from "react";
 import PropTypes from 'prop-types'; 
 import auth from "../firebase/firebase";
 import { GoogleAuthProvider } from "firebase/auth";
+import axios from "axios";
 
 export const AuthContext = createContext()
 const provider = new GoogleAuthProvider();
@@ -33,6 +34,7 @@ const Context = ({ children }) => {
 
     let userLogOut = () => {
         setLoading(true)
+        axios.post("http://localhost:5000/signout", user, {withCredentials: true})  
         return signOut(auth)
     }
 

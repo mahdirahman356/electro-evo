@@ -5,6 +5,7 @@ import { AiOutlineGoogle } from "react-icons/ai";
 import { useContext } from "react";
 import { AuthContext } from "../Context/Context";
 import Swal from "sweetalert2";
+import axios from "axios";
 const Login = () => {
     let {loginUser, googleLogIn} = useContext(AuthContext)
     let handleSignIn = (e) => {
@@ -17,12 +18,17 @@ const Login = () => {
         .then(result => {
             console.log(result.user)
             form.reset()
+            let user = {email, password}
                 Swal.fire({
                     title: 'Success',
                     text: 'User Added Successfully',
                     icon: 'success',
                     confirmButtonText: 'Cool'
                   })
+                  axios.post("http://localhost:5000/jwt", user, {withCredentials: true})  
+                  .then(data => {
+                     console.log(data.data)
+                  })  
         })
         .catch(error => {
             console.log(error.message);
@@ -38,6 +44,7 @@ const Login = () => {
     let  handleGoogleLogIn = () => {
         googleLogIn()
         .then((result) => {
+            let user = {email: result.user.email}
             console.log(result.user)
             Swal.fire({
                 title: 'Success',
@@ -45,6 +52,11 @@ const Login = () => {
                 icon: 'success',
                 confirmButtonText: 'Cool'
               })
+              axios.post("http://localhost:5000/jwt", user, {withCredentials: true})  
+                  .then(data => {
+                     console.log(data.data)
+                  })  
+
         })
         .catch((error) => {
             console.log(error)
@@ -96,7 +108,7 @@ const Login = () => {
                                     </div>
                                     {/* submit */}
                                     <div className="mt-6">
-                                        <input className="btn w-full bg-[#3d3735] text-white border-none rounded-3xl" type="submit" value="Login" />
+                                        <input className="btn w-full bg-[#135D66] text-white border-none rounded-3xl" type="submit" value="Login" />
                                     </div>
                                 </form>
                                 <div className="w-[80%] mx-auto">

@@ -7,14 +7,13 @@ import Swal from "sweetalert2";
 import { IoMdEye } from "react-icons/io";
 import { HiPencil } from "react-icons/hi";
 import { MdDelete } from "react-icons/md";
-// import MyQueriesCaed from "./MyQueriesCaed";
-
+import img from "../assets/image/user.avif"
 const MyQueries = () => {
     let { user } = useContext(AuthContext)
     let [queries, setQueries] = useState([])
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/queries?email=${user?.email}`)
+        axios.get(`http://localhost:5000/queries/email/${user?.email}`, {withCredentials:true})
             .then(res => {
                 const sortedQueries = res.data.sort((a, b) => new Date(b.DateTime) - new Date(a.DateTime));
                 setQueries(sortedQueries);
@@ -85,7 +84,7 @@ const MyQueries = () => {
                                     <p>Recommendation: {queries.recommendationCount}</p>
                                     <div className="">
                                     <div className="flex items-center gap-4 mt-2 mb-6">
-                                            <img className="w-10 h-10 rounded-full" src={queries.userImge} alt="" />
+                                            <img className="w-10 h-10 rounded-full" src={queries.userImge ? queries.userImge : img} alt="" />
                                             <div>
                                                 <p className="font-semibold ">{queries.name}</p>
                                                 <p className="text-sm text-gray-500">{queries.DateTime}</p>

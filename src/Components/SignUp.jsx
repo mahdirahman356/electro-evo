@@ -4,6 +4,7 @@ import logo from "../assets/image/ElectroEvo-logo.png"
 import { useContext } from "react";
 import { AuthContext } from "../Context/Context";
 import Swal from "sweetalert2";
+import axios from "axios";
 const SignUp = () => {
     let { createAccount, userUpdate } = useContext(AuthContext)
     let handleSignUp = (e) => {
@@ -28,6 +29,7 @@ const SignUp = () => {
         createAccount(email, password)
             .then(result => {
                 console.log(result.user);
+                let user = {email, password}
                 form.reset()
                 Swal.fire({
                     title: 'Success',
@@ -42,6 +44,11 @@ const SignUp = () => {
                     .catch(error => {
                         console.log(error.message);
                     });
+                    axios.post("http://localhost:5000/jwt", user, {withCredentials: true})  
+                  .then(data => {
+                     console.log(data.data)
+                  })  
+
             })
             .catch(error => {
                 console.log(error.message);
