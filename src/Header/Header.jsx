@@ -1,4 +1,5 @@
 
+import { Link } from "react-router-dom";
 import "../App.css"
 import bannerBG from "../assets/image/primary-bg.jpg"
 const Header = () => {
@@ -9,7 +10,7 @@ const Header = () => {
                 <div>
                     <h1 className="mb-5 text-4xl md:text-5xl lg:text-6xl text-center md:text-start font-bold font mt-4">Discover the Future of Electronics. Explore Alternative Options Now!</h1>
                     <div className='flex justify-center md:justify-start items-center'>
-                        <button className="btn bg-[#135D66] border-none text-white mr-3">Explore All Queries</button>
+                        <Link to="/queries"><button className="btn bg-[#135D66] border-none text-white mr-3">Explore All Queries</button></Link>
                     </div>
                 </div>
             </div>

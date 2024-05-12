@@ -82,6 +82,8 @@ const MyQueries = () => {
                                     <h2 className="card-title underline">{queries.productName}:</h2>
                                     <h2 className="card-title">{queries.queryTitle}</h2>
                                     <p className='font-semibold'>Brand: <span className='font-normal'>{queries.productBrand}</span></p>
+                                    <p>Recommendation: {queries.recommendationCount}</p>
+                                    <div className="">
                                     <div className="flex items-center gap-4 mt-2 mb-6">
                                             <img className="w-10 h-10 rounded-full" src={queries.userImge} alt="" />
                                             <div>
@@ -89,8 +91,9 @@ const MyQueries = () => {
                                                 <p className="text-sm text-gray-500">{queries.DateTime}</p>
                                             </div>
                                         </div>
+                                    </div>
                                     <div className="flex justify-end items-center gap-3">
-                                        <Link to={`/querie-details/${queries._id}`}><button className="btn text-white bg-[#135D66] rounded-full border-none"><IoMdEye className='text-[20px] text-white' /></button></Link>
+                                        <Link to={`/recommend/${queries._id}`}><button className="btn text-white bg-[#135D66] rounded-full border-none"><IoMdEye className='text-[20px] text-white' /></button></Link>
                                         <Link to={`/update-queries/${queries._id}`}><button className="btn text-white bg-[#135D66] rounded-full border-none"><HiPencil className='text-[20px] text-white' /></button></Link>
                                         <button onClick={() => handleDelete(queries._id)} className="btn bg-[#EA4744] rounded-full border-none"><MdDelete className='text-[20px] text-white' /></button>                    </div>
                                 </div>

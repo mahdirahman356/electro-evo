@@ -58,15 +58,18 @@ const Recommend = () => {
 
     let [recommend, setRecommend] = useState([])
     useEffect(() => {
-        axios.get(`http://localhost:5000/recommend/${_id}`)
-            .then(res => {
-                setRecommend(res.data)
-            })
-            .catch(error => {
-                console.error('Error fetching recommendations:', error);
-            });
-    }, [_id])
-
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(`http://localhost:5000/recommend/${_id}`);
+                setRecommend(response.data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchData();
+        const interval = setInterval(fetchData, 1000);
+        return () => clearInterval(interval);
+    }, [_id]);
     return (
         <div className="flex flex-col lg:flex-row justify-between gap-6 md:w-[95%] w-[90%] mx-auto my-14">
             <div className="lg:w-1/2 overflow-hidden  rounded-lg shadow-md">
@@ -74,9 +77,9 @@ const Recommend = () => {
                 <div className="p-6">
                     <div>
                         <span className="text-xs font-medium text-blue-600 uppercase dark:text-blue-400">{productName}</span>
-                        <a href="#" className="block mt-2 text-xl font-semibold text-gray-800 transition-colors duration-300 transform  hover:underline" tabIndex={"0"} role="link">{queryTitle}</a>
-                        <p className="mt-2 text-gray-600">{boycottingDetails}</p>
-                        <p className="mt-2 text-gray-600 font-semibold">Brand: <span className="font-normal">{productBrand}</span></p>
+                        <a href="#" className="block mt-2 text-xl font-semibold transition-colors duration-300 transform  hover:underline" tabIndex={"0"} role="link">{queryTitle}</a>
+                        <p className="mt-2">{boycottingDetails}</p>
+                        <p className="mt-2 font-semibold">Brand: <span className="font-normal">{productBrand}</span></p>
                     </div>
 
                     <div className="mt-4">
@@ -94,29 +97,29 @@ const Recommend = () => {
                         </div>
                     </div>
                 </div>
-                
-             {recommend.map((recom, index) =>
-                 <div key={index} className="chat chat-end p-6">
-                 <div className="chat-image avatar">
-                   <div className="w-10 rounded-full">
-                     <img alt="Tailwind CSS chat bubble component" src={recom.recommendationAuthURL} />
-                   </div>
-                 </div>
-                 <div className="chat-header flex items-center flex-col md:flex-row">
-                   <span className="md:mr-2 text-end">{recom.recommendationName}</span>
-                  <time className="text-xs opacity-50">{recom.TimeStamp}</time>
-                 </div>
-                 <div className="chat-bubble bg-gray-100 text-gray-500">
-                    <p className="text-gray-800 font-semibold">{recom.recomTitle}</p>
-                       {recom.recomReason}
-                    </div>
-                 <div className="chat-footer flex flex-col justify-end items-end">
-                <p>{recom.recomProductName}</p>
-                <div>
-                <img className="h-16 mt-1 rounded-lg" src={recom.recomProductImage} alt="" />
-                </div>
-                 </div>
-               </div>)}
+
+                {recommend.map((recom, index) =>
+                    <div key={index} className="chat chat-end p-6">
+                        <div className="chat-image avatar">
+                            <div className="w-10 rounded-full">
+                                <img alt="Tailwind CSS chat bubble component" src={recom.recommendationAuthURL} />
+                            </div>
+                        </div>
+                        <div className="chat-header flex items-center flex-col md:flex-row">
+                            <span className="md:mr-2 text-end">{recom.recommendationName}</span>
+                            <time className="text-xs opacity-50">{recom.TimeStamp}</time>
+                        </div>
+                        <div className="chat-bubble bg-gray-100 text-gray-500">
+                            <p className="text-gray-800 font-semibold">{recom.recomTitle}</p>
+                            {recom.recomReason}
+                        </div>
+                        <div className="chat-footer flex flex-col justify-end items-end">
+                            <p>{recom.recomProductName}</p>
+                            <div>
+                                <img className="h-16 mt-1 rounded-lg" src={recom.recomProductImage} alt="" />
+                            </div>
+                        </div>
+                    </div>)}
 
             </div>
 
