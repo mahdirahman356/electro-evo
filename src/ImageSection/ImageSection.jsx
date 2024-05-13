@@ -5,7 +5,7 @@ import img4 from "../assets/image/electronics-slider-4.jpg"
 // import img4 from "../assets/image/iphone.jpg"
 const ImageSection = () => {
     return (
-        <div className="w-[95%] md:w-[85%] mx-auto md:mt-24">
+        <div className="w-[95%] md:w-[85%] mx-auto md:my-24">
             <div className="w-[95%] md:w-[70%] lg:w-[50%] mx-auto text-center my-16 mb-20">
                 <h1 className="font-bold text-4xl mb-2">Explore Our Collection</h1>
                 <p className="text-gray-500">Discover the latest trends and must-have items in our curated collection. From fashion essentials to tech gadgets, explore our diverse range of products that cater to your every need and desire.</p>
