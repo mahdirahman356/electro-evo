@@ -9,7 +9,7 @@ const RecommendationsForMe = () => {
 
 
     useEffect(() => {
-             axios.get(`http://localhost:5000/recommend/RecommendForMe/${user.email}`,{withCredentials:true})
+             axios.get(`https://electro-evo-server.vercel.app/recommend/RecommendForMe/${user.email}`,{withCredentials:true})
             .then(res => {
                 setRecommend(res.data)
             })

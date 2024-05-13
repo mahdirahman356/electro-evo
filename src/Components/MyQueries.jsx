@@ -13,7 +13,7 @@ const MyQueries = () => {
     let [queries, setQueries] = useState([])
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/queries/email/${user?.email}`, {withCredentials:true})
+        axios.get(`https://electro-evo-server.vercel.app/queries/email/${user?.email}`, {withCredentials:true})
             .then(res => {
                 const sortedQueries = res.data.sort((a, b) => new Date(b.DateTime) - new Date(a.DateTime));
                 setQueries(sortedQueries);
@@ -31,7 +31,7 @@ const MyQueries = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/queries/${id}`, {
+                fetch(`https://electro-evo-server.vercel.app/queries/${id}`, {
                     method: "DELETE"
                 })
                     .then(res => res.json())

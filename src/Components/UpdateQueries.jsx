@@ -17,7 +17,7 @@ const UpdateQueries = () => {
         let imageURL = form.imageURL.value
         let updates = {productName, productBrand, queryTitle, boycottingDetails, imageURL}
         console.log(updates)
-        axios.put(`http://localhost:5000/queries/${_id}`, updates)
+        axios.put(`https://electro-evo-server.vercel.app/queries/${_id}`, updates)
         .then(res => {
             console.log(res.data)
             if(res.data.modifiedCount > 0){

@@ -33,7 +33,7 @@ const Context = ({ children }) => {
 
     let userLogOut = () => {
         setLoading(true)
-        axios.post("http://localhost:5000/signout", user, {withCredentials:true})  
+        axios.post("https://electro-evo-server.vercel.app/signout", user, {withCredentials:true})  
         return signOut(auth)
     }
 

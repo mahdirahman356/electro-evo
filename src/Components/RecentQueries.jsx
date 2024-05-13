@@ -6,7 +6,7 @@ import axios from "axios";
 const RecentQueries = () => {
     let [recentQueries, setRecentQueries] = useState([])
     useEffect(() => {
-        axios.get(`http://localhost:5000/queries`)
+        axios.get(`https://electro-evo-server.vercel.app/queries`)
             .then(res => {
                 const sortedQueries = res.data.sort((a, b) => new Date(b.DateTime) - new Date(a.DateTime));
                 setRecentQueries(sortedQueries.slice(0, 6));
