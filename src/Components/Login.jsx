@@ -113,7 +113,7 @@ const Login = () => {
                                 </form>
                                 <div className="w-[80%] mx-auto">
                                       <p className="text-center mt-3">____________or____________</p>
-                                      <button onClick={handleGoogleLogIn} className="btn btn-outline border-gray-600 border-2 rounded-3xl w-full mt-3 text-white"><AiOutlineGoogle className="text-[30px]" /> Continue with Google</button>
+                                      <button onClick={handleGoogleLogIn} className="btn btn-outline border-gray-600 border-2 rounded-3xl w-full mt-3 text-white"><AiOutlineGoogle className="text-[20px] md:text-[30px]" /> Continue with Google</button>
                                       <div className="mt-4 text-center ">
                                         <p className="text-sm">
                                             Do not have an account? <Link to='/signup' className="underline text-[steelblue]">Sign Up</Link>
