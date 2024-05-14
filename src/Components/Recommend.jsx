@@ -10,6 +10,8 @@ const Recommend = () => {
     let { _id, productBrand, productName, queryTitle, boycottingDetails, imageURL, DateTime, recommendationCount, name, email, userImge } = queries
     const [currentDateTime, setCurrentDateTime] = useState(new Date());
     const [updatedRecommendationCount, setUpdatedRecommendationCount] = useState(recommendationCount)
+    let [recommend, setRecommend] = useState([])
+
 
 
     useEffect(() => {
@@ -35,7 +37,7 @@ const Recommend = () => {
                 console.log(res.data)
                 if (res.data.acknowledged === true) {
                     axios.patch(`https://electro-evo-server.vercel.app/queries/${_id}`, {
-                    recommendationCount: recommendationCount + 1})
+                    recommendationCount: recommendationCount + 1 })
                     .then(() => {
                         setUpdatedRecommendationCount(updatedRecommendationCount + 1)
                     })
@@ -50,7 +52,6 @@ const Recommend = () => {
             })
     }
 
-    let [recommend, setRecommend] = useState([])
     useEffect(() => {
         const fetchData = async () => {
             try {
