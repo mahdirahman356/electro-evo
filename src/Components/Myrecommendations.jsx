@@ -3,15 +3,15 @@ import primaryBG from "../assets/image/primary-bg.jpg"
 import axios from "axios";
 import { AuthContext } from "../Context/Context";
 import Swal from "sweetalert2";
-import { useLoaderData } from "react-router-dom";
+// import { useLoaderData } from "react-router-dom";
 import img from "../assets/image/user.avif"
 const Myrecommendations = () => {
-    let quary = useLoaderData()
+    // let quary = useLoaderData()
     let { user } = useContext(AuthContext)
     let [recommend, setRecommend] = useState([])
 
     useEffect(() => {
-        axios.get(`https://electro-evo-server.vercel.app/recommend/myRecommrnd/${user.email}`, {withCredentials:true})
+        axios.get(`http://localhost:5000/recommend/myRecommrnd/${user.email}`, {withCredentials:true})
             .then(res => {
                 setRecommend(res.data)
             })
@@ -30,7 +30,7 @@ const Myrecommendations = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`https://electro-evo-server.vercel.app/recommend/${id}`, {
+                fetch(`http://localhost:5000/recommend/${id}`, {
                     method: "DELETE"
                 })
                     .then(res => res.json())
@@ -43,11 +43,9 @@ const Myrecommendations = () => {
                             });
                             let DeleteCard = recommend.filter(tourist => tourist._id !== id)
                             setRecommend(DeleteCard)
-                            let findId = quary.filter(quary => quary._id === queriesId)
-                            console.log(findId)
-                            axios.patch(`https://electro-evo-server.vercel.app/queries/${queriesId}`, {
-                                recommendationCount: findId.recommendationCount - 1 
-                            });
+                            // let findId = quary.filter(quary => quary._id === queriesId)
+                            // console.log(findId)
+                            axios.patch(`http://localhost:5000/queries/desRecom/${queriesId}`);
                         }
                     })
             }

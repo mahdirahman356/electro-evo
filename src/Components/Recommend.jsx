@@ -25,21 +25,21 @@ const Recommend = () => {
     
     let handleRecommend = (e) => {
         e.preventDefault()
-        let form = e.target
+        let form = e.target;
         let recomTitle = form.recomTitle.value
         let recomProductName = form.recomProductName.value
         let recomProductImage = form.recomProductImage.value
         let recomReason = form.recomReason.value
         let recommend = { queriesId: _id, recomProductName, authURL: userImge, recomTitle, recomProductImage, recomReason, queryTitle, productName, name, email, TimeStamp, recommendationEmail: user.email, recommendationName: user.displayName, recommendationAuthURL: user.photoURL }
         console.log(recommend)
-        axios.post('https://electro-evo-server.vercel.app/recommend', recommend)
+        axios.post('http://localhost:5000/recommend', recommend)
             .then(res => {
                 console.log(res.data)
                 if (res.data.acknowledged === true) {
-                    axios.patch(`https://electro-evo-server.vercel.app/queries/${_id}`, {
-                    recommendationCount: recommendationCount + 1 })
-                    .then(() => {
-                        setUpdatedRecommendationCount(updatedRecommendationCount + 1)
+                    axios.patch(`http://localhost:5000/queries/${_id}`)
+                    .then((newRes) => {
+                        if(newRes.data.modifiedCount > 0)
+                        setUpdatedRecommendationCount(updatedRecommendationCount+1);
                     })
                     form.reset()
                     Swal.fire({
@@ -55,7 +55,7 @@ const Recommend = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`https://electro-evo-server.vercel.app/recommend/${_id}`);
+                const response = await axios.get(`http://localhost:5000/recommend/${_id}`);
                 setRecommend(response.data);
             } catch (error) {
                 console.error(error);

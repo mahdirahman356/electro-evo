@@ -29,7 +29,7 @@ const AddQueries = () => {
         let imageURL = form.imageURL.value
         let queries = {productBrand, productName, queryTitle, boycottingDetails, imageURL,DateTime, recommendationCount: 0, email: user.email, name: user.displayName, userImge: user.photoURL}
         console.log(queries)
-        axios.post('https://electro-evo-server.vercel.app/queries', queries)
+        axios.post('http://localhost:5000/queries', queries)
         .then(res => {
             console.log(res.data)
             if(res.data.acknowledged === true){
@@ -105,7 +105,8 @@ const AddQueries = () => {
                                             type="text"
                                             name="imageURL"
                                             className="w-full rounded-3xl py-3 bg-[#15151503]  border-2 text-white px-11 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                                            placeholder="Product Image-URL" />
+                                            placeholder="Product Image-URL" 
+                                            required/>
                                     </div>
                                     {/* submit */}
                                     <div className="mt-6">
