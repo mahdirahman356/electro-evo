@@ -49,12 +49,12 @@ const router = createBrowserRouter([
       },
       {
         path:"/update-queries/:id",
-        loader: ({params}) => fetch(`http://localhost:5000/queries/${params.id}`),
+        loader: ({params}) => fetch(`https://electro-evo-server.vercel.app/queries/${params.id}`),
         element:<UpdateQueries></UpdateQueries>
       },
       {
         path:"/querie-details/:id",
-        loader: ({params}) => fetch(`http://localhost:5000/queries/${params.id}`),
+        loader: ({params}) => fetch(`https://electro-evo-server.vercel.app/queries/${params.id}`),
         element:<QuerieDetails></QuerieDetails>
       },
       {
@@ -63,7 +63,7 @@ const router = createBrowserRouter([
       },
       {
         path:"/recommend/:id",
-        loader: ({params}) => fetch(`http://localhost:5000/queries/${params.id}`),
+        loader: ({params}) => fetch(`https://electro-evo-server.vercel.app/queries/${params.id}`),
         element:<Recommend></Recommend>
       },
       {
@@ -72,7 +72,7 @@ const router = createBrowserRouter([
       },
       {
         path:"/myRCD",
-        loader: () => fetch(`http://localhost:5000/queries`),
+        loader: () => fetch(`https://electro-evo-server.vercel.app/queries`),
         element:<PrivetRoute><Myrecommendations></Myrecommendations></PrivetRoute>
       }
     ]

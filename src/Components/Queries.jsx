@@ -12,7 +12,7 @@ const Queries = () => {
     let [layout, setLayout] = useState("grid-cols-3")
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/queries?search=${search}`)
+        axios.get(`https://electro-evo-server.vercel.app/queries?search=${search}`)
             .then(res => {
                 const sortedQueries = res.data.sort((a, b) => new Date(b.DateTime) - new Date(a.DateTime));
                 setAllQueries(sortedQueries);
