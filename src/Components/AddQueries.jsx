@@ -29,7 +29,7 @@ const AddQueries = () => {
         let imageURL = form.imageURL.value
         let queries = {productBrand, productName, queryTitle, boycottingDetails, imageURL,DateTime, recommendationCount: 0, email: user.email, name: user.displayName, userImge: user.photoURL}
         console.log(queries)
-        axios.post('https://electro-evo-server.vercel.app/queries', queries)
+        axios.post('http://localhost:5000/queries', queries)
         .then(res => {
             console.log(res.data)
             if(res.data.acknowledged === true){

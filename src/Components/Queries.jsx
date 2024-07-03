@@ -10,21 +10,25 @@ const Queries = () => {
     let [allQueries, setAllQueries] = useState([])
     let [search, setSearch] = useState("")
     let [layout, setLayout] = useState("grid-cols-3")
+    let [loading, setLoading] = useState(false); // State for loading spinner
 
     useEffect(() => {
-        axios.get(`https://electro-evo-server.vercel.app/queries?search=${search}`)
+        setLoading(true)
+        axios.get(`http://localhost:5000/queries?search=${search}`)
             .then(res => {
                 const sortedQueries = res.data.sort((a, b) => new Date(b.DateTime) - new Date(a.DateTime));
                 setAllQueries(sortedQueries);
+                setLoading(false)
             })
-    }, [])
+    }, [search])
 
     let handleSearch = (e) => {
         e.preventDefault()
         let search = e.target.search.value
         setSearch(search)
+        console.log(search)
     }
-    
+
     let handleLayout = (ChangeCol) => {
         setLayout(ChangeCol)
     }
@@ -50,39 +54,46 @@ const Queries = () => {
                 </details>
                 <div className="bg-gray-200 p-2 rounded-xl flex-1">
                     <form onSubmit={handleSearch} className="flex">
-                        <input type="search" name="search" placeholder="Search Product" className="flex-1 px-4 bg-transparent bg-gray-200 border-none focus:outline-none focus:placeholder-transparent focus:ring-0" />
+                        <input type="text" name="search" placeholder="Search Product" className="flex-1 px-4 bg-transparent bg-gray-200 border-none focus:outline-none focus:placeholder-transparent focus:ring-0" />
 
                         <input className="btn btn-sm bg-[#135D66] text-white" type="submit" value="Search" />
                     </form>
                 </div>
             </div>
 
-            <div className={`w-[95%] md:w-[85%] mx-auto my-12 grid sm:grid-cols-1 md:grid-cols-2 lg:${layout} gap-6`}>
+           { loading ? (
+                        <div className="flex justify-center items-center w-full h-full">
+                            <span className="loading loading-spinner loading-lg"></span>
+                        </div>
+                    ) : 
+
+            (<div className={`w-[95%] md:w-[85%] mx-auto my-12 grid sm:grid-cols-1 md:grid-cols-2 lg:${layout} gap-6`}>
                 {
-                    allQueries.map((queries, index) => <div key={index}>
-                        <div className="card h-full bg-base-100 shadow-xl">
-                            <figure><img src={queries.imageURL} alt="Shoes" /></figure>
-                            <div className="card-body">
-                                <h2 className="card-title underline">{queries.productName}:</h2>
-                                <h2 className="card-title">{queries.queryTitle}</h2>
-                                <p className='font-semibold text-gray-600'><span className='font-normal'>{queries.boycottingDetails}</span></p>
-                                <p className='font-semibold'>Brand: <span className='font-normal'>{queries.productBrand}</span></p>
-                                <p className='font-semibold'>Recommendation: <span className='font-normal'>{queries.recommendationCount}</span></p>
-                                <div className="flex items-center gap-4 mt-2 mb-6">
-                                    <img className="w-10 h-10 rounded-full" src={queries.userImge ? queries.userImge : userImg} alt="" />
-                                    <div>
-                                        <p className="font-semibold ">{queries.name}</p>
-                                        <p className="text-sm text-gray-500">{queries.DateTime}</p>
-                                    </div>
-                                </div>
-                                <div className="flex justify-end items-center gap-3">
-                                    <Link className="w-full" to={`/recommend/${queries._id}`}><button className="btn w-full rounded-3xl bg-[#135D66] border-none text-white">Recommend</button></Link>
+                allQueries.map((queries, index) => <div key={index}>
+                    <div className="card h-full bg-base-100 shadow-xl">
+                        <figure><img src={queries.imageURL} alt="Shoes" /></figure>
+                        <div className="card-body">
+                            <h2 className="card-title underline">{queries.productName}:</h2>
+                            <h2 className="card-title">{queries.queryTitle}</h2>
+                            <p className='font-semibold text-gray-600'><span className='font-normal'>{queries.boycottingDetails}</span></p>
+                            <p className='font-semibold'>Brand: <span className='font-normal'>{queries.productBrand}</span></p>
+                            <p className='font-semibold'>Recommendation: <span className='font-normal'>{queries.recommendationCount}</span></p>
+                            <div className="flex items-center gap-4 mt-2 mb-6">
+                                <img className="w-10 h-10 rounded-full" src={queries.userImge ? queries.userImge : userImg} alt="" />
+                                <div>
+                                    <p className="font-semibold ">{queries.name}</p>
+                                    <p className="text-sm text-gray-500">{queries.DateTime}</p>
                                 </div>
                             </div>
+                            <div className="flex justify-end items-center gap-3">
+                                <Link className="w-full" to={`/recommend/${queries._id}`}><button className="btn w-full rounded-3xl bg-[#135D66] border-none text-white">Recommend</button></Link>
+                            </div>
                         </div>
-                    </div>)
-                }
-            </div>
+                    </div>
+                </div>)
+            }
+                
+            </div>)}
 
         </div>
     );

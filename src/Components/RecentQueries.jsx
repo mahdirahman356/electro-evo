@@ -6,7 +6,7 @@ import axios from "axios";
 const RecentQueries = () => {
     let [recentQueries, setRecentQueries] = useState([])
     useEffect(() => {
-        axios.get(`https://electro-evo-server.vercel.app/queries`)
+        axios.get(`http://localhost:5000/queries`)
             .then(res => {
                 const sortedQueries = res.data.sort((a, b) => new Date(b.DateTime) - new Date(a.DateTime));
                 setRecentQueries(sortedQueries.slice(0, 6));
@@ -25,7 +25,7 @@ const RecentQueries = () => {
                     recentQueries.map((queries, index) => <div key={index}>
                         <div className="card h-full bg-base-100 shadow-xl">
                             <figure><img src={queries.imageURL} alt="Shoes" /></figure>
-                            <div className="card-body"> 
+                            <div className="card-body">
                                 <h2 className="card-title underline">{queries.productName}:</h2>
                                 <h2 className="card-title">{queries.queryTitle}</h2>
                                 <p className='font-semibold text-gray-600'><span className='font-normal'>{queries.boycottingDetails}</span></p>

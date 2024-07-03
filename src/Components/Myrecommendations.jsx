@@ -11,7 +11,7 @@ const Myrecommendations = () => {
     let [recommend, setRecommend] = useState([])
 
     useEffect(() => {
-        axios.get(`https://electro-evo-server.vercel.app/recommend/myRecommrnd/${user.email}`, {withCredentials:true})
+        axios.get(`http://localhost:5000/recommend/myRecommrnd/${user.email}`, {withCredentials:true})
             .then(res => {
                 setRecommend(res.data)
             })
@@ -30,7 +30,7 @@ const Myrecommendations = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`https://electro-evo-server.vercel.app/recommend/${id}`, {
+                fetch(`http://localhost:5000/recommend/${id}`, {
                     method: "DELETE"
                 })
                     .then(res => res.json())
@@ -45,7 +45,7 @@ const Myrecommendations = () => {
                             setRecommend(DeleteCard)
                             // let findId = quary.filter(quary => quary._id === queriesId)
                             // console.log(findId)
-                            axios.patch(`https://electro-evo-server.vercel.app/queries/desRecom/${queriesId}`);
+                            axios.patch(`http://localhost:5000/queries/desRecom/${queriesId}`);
                         }
                     })
             }
