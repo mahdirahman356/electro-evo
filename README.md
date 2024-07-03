@@ -3,28 +3,30 @@
 
 ## Live Website URL
 
-[https://electroevo-89e11.web.app/my-queries](https://electroevo-89e11.web.app/my-queries) 
+[https://electroevo-89e11.web.app/my-queries](https://electroevo-89e11.web.app) 
 
-## Project Description
+## Project Overview
 
-The Alternative Product Information System is a web application that allows users to interact with a database of product queries, recommendations, and user-generated content. Users can add, update, delete their queries, view recommendations, add their recommendations, and much more. The system aims to provide a platform for users to find alternative products and make informed decisions.
+ElectroEvo is an innovative platform designed to help users manage and troubleshoot issues related to their electronic devices. Users can easily post and share problems they encounter with their electronics, fostering a collaborative environment where solutions and recommendations can be exchanged. This interactive platform not only allows users to add, update, and delete their queries, but also provides a space for viewing and contributing recommendations. The goal is to empower users with the information they need to find alternative products and make more informed purchasing decisions.
 
 ## Features
 
-- **Authentication System:** Users can register and log in using email/password or Google sign-in.
-- **Home Page:** The default landing page featuring a slider, banner, and recent queries.
-- **Add Queries:** Private route where users can add queries about products they are interested in.
-- **My Queries:** Private route where users can view, update, and delete their queries.
-- **Queries:** Public route where users can view all queries, search for specific products, and recommend products to others.
-- **Query Details:** Page displaying detailed information about a specific query, including recommendations.
-- **Add Recommendation:** Form for users to add recommendations to queries.
-- **My Recommendations:** Private route for users to view and delete their recommendations.
-- **Recommendations For Me:** Route for users to view recommendations made by others for their queries.
-- **Search Functionality:** Ability to search queries based on product name.
-- **JWT Authentication:** Implemented JWT token authentication for private routes.
-- **Change Layout:** Option to toggle between different grid layouts on the All Queries page.
-- **Dark/Light Theme:** Toggle between dark and light themes for the entire application.
-- **Optional Features:** Implemented spinner for loading state and explored Framer Motion for animations.
+- **Major Feature 1:** Users can post and share detailed descriptions of the problems they experience with their electronic devices, enabling others to offer solutions or share similar experiences.
+- **Major Feature 2:**  Users have full control over their posts, with the ability to update and delete their entries as needed. This ensures that the information remains relevant and up-to-date.
+- **Major Feature 3:** In addition to troubleshooting, users can recommend high-quality products, share photos, and provide detailed reviews. This helps build a repository of trusted recommendations for others to consult.
 
+## Technologies Used
+
+- **Frontend:** React
+- **Backend:** Nodejs, Express.js
+- **Database:** MongoDB 
+- **Authentication:** Firebase Authentication
+
+## Steps to Clone and Run Locally
+
+- **Clone the Repository:** git clone [repository-url]
+- **Navigate to the Project Directory:**  cd [project-directory]
+- **Install Dependencies:** npm install
+- **Set Up Environment Variables:** Create a .env file in the root directory for the backend environment variables (e.g., MongoDB URI). and Create a .env.local file in the root directory for the frontend environment variables (e.g., Firebase keys).
 
 
