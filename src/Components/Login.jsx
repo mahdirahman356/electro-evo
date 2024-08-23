@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import loginBg from "../assets/image/primary-bg.jpg"
 import logo from "../assets/image/ElectroEvo-logo.png"
 import { AiOutlineGoogle } from "react-icons/ai";
@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import axios from "axios";
 const Login = () => {
     let {loginUser, googleLogIn} = useContext(AuthContext)
+    const navigate = useNavigate()
     let handleSignIn = (e) => {
         e.preventDefault()
         let form = e.target
@@ -28,6 +29,7 @@ const Login = () => {
                   axios.post("http://localhost:5000/jwt", user, {withCredentials: true})  
                   .then(data => {
                      console.log(data.data)
+                     navigate('/')
                   })  
         })
         .catch(error => {

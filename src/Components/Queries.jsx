@@ -62,7 +62,7 @@ const Queries = () => {
             </div>
 
            { loading ? (
-                        <div className="flex justify-center items-center w-full h-full">
+                        <div className="flex justify-center items-center w-full h-screen">
                             <span className="loading loading-spinner loading-lg"></span>
                         </div>
                     ) : 

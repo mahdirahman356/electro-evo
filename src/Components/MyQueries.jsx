@@ -19,7 +19,7 @@ const MyQueries = () => {
                 setQueries(sortedQueries);
                 console.log(sortedQueries)
             })
-    }, [])
+    }, [user?.email])
 
     let handleDelete = (id) => {
         Swal.fire({
