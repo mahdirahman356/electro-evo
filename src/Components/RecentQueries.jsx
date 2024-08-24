@@ -6,15 +6,8 @@ import { FaRegComment, FaRegComments } from "react-icons/fa";
 import QuerieDetails from "./QuerieDetails";
 import Recommend from "./Recommend";
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
 const RecentQueries = () => {
-    // let [recentQueries, setRecentQueries] = useState([])
-    // useEffect(() => {
-    //     axios.get(`http://localhost:5000/queries`)
-    //         .then(res => {
-    //             const sortedQueries = res.data.sort((a, b) => new Date(b.DateTime) - new Date(a.DateTime));
-    //             setRecentQueries(sortedQueries.slice(0, 6));
-    //         })
-    // }, [])
 
     const { data: recentQueries = [], refetch } = useQuery({
         queryKey: ["recentQueries"],
@@ -57,7 +50,7 @@ const RecentQueries = () => {
                                         </div>
                                         <dialog id={`my_modal_details_${queries._id}`} className="modal">
                                             <div className="modal-box p-0 md:p-6">
-                                            <form method="dialog">
+                                                <form method="dialog">
                                                     <button className="btn btn-sm bg-gray-100 btn-circle btn-ghost absolute right-2 top-2">✕</button>
                                                 </form>
                                                 <QuerieDetails id={queries._id}></QuerieDetails>
@@ -77,7 +70,7 @@ const RecentQueries = () => {
                                         </div>
                                         <dialog id={`my_modal_${queries._id}`} className="modal">
                                             <div className="modal-box">
-                                            <form method="dialog">
+                                                <form method="dialog">
                                                     <button className="btn btn-sm bg-gray-100 btn-circle btn-ghost absolute right-2 top-2">✕</button>
                                                 </form>
                                                 <Recommendation id={queries._id}></Recommendation>
@@ -110,6 +103,16 @@ const RecentQueries = () => {
                         </div>
                     </div>)
                 }
+            </div>
+            <div className="flex justify-center items-center my-6">
+                <Link to="/queries">
+                    <button className="btn bg-gradient-to-r from-[#0E4A52] to-[#135D66] border-none text-white hover:from-[#0A3940] hover:to-[#0E4A52] hover:shadow-lg transform hover:scale-105 transition duration-300 ease-in-out rounded-full text-xl flex items-center justify-center space-x-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
+                        </svg>
+                        <span>Explore All Queries</span>
+                    </button>   
+                </Link>
             </div>
         </div>
     );
