@@ -55,8 +55,7 @@ const router = createBrowserRouter([
         element:<UpdateQueries></UpdateQueries>
       },
       {
-        path:"/querie-details/:id",
-        loader: ({params}) => fetch(`http://localhost:5000/queries/${params.id}`),
+        path:"/querie-details",
         element:<QuerieDetails></QuerieDetails>
       },
       {
@@ -64,8 +63,7 @@ const router = createBrowserRouter([
         element:<Queries></Queries>
       },
       {
-        path:"/recommend/:id",
-        loader: ({params}) => fetch(`http://localhost:5000/queries/${params.id}`),
+        path:"/recommend",
         element:<Recommend></Recommend>
       },
       {

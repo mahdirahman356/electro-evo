@@ -1,19 +1,30 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+// import { useEffect, useState } from "react";
 import userImg from "../assets/image/user.avif"
 import axios from "axios";
 import Recommendation from "./Recommendation";
-import { FaRegComment, FaRegCommentDots } from "react-icons/fa";
-
+import { FaRegComment, FaRegComments } from "react-icons/fa";
+import QuerieDetails from "./QuerieDetails";
+import Recommend from "./Recommend";
+import { useQuery } from "@tanstack/react-query";
 const RecentQueries = () => {
-    let [recentQueries, setRecentQueries] = useState([])
-    useEffect(() => {
-        axios.get(`http://localhost:5000/queries`)
-            .then(res => {
-                const sortedQueries = res.data.sort((a, b) => new Date(b.DateTime) - new Date(a.DateTime));
-                setRecentQueries(sortedQueries.slice(0, 6));
-            })
-    }, [])
+    // let [recentQueries, setRecentQueries] = useState([])
+    // useEffect(() => {
+    //     axios.get(`http://localhost:5000/queries`)
+    //         .then(res => {
+    //             const sortedQueries = res.data.sort((a, b) => new Date(b.DateTime) - new Date(a.DateTime));
+    //             setRecentQueries(sortedQueries.slice(0, 6));
+    //         })
+    // }, [])
+
+    const { data: recentQueries = [], refetch } = useQuery({
+        queryKey: ["recentQueries"],
+        queryFn: async () => {
+            const res = await axios.get(`http://localhost:5000/queries`)
+            const sortedQueries = res.data.sort((a, b) => new Date(b.DateTime) - new Date(a.DateTime))
+
+            return sortedQueries.slice(0, 6)
+        }
+    })
 
     return (
         <div>
@@ -35,35 +46,65 @@ const RecentQueries = () => {
                             </div>
                             <figure><img src={queries.imageURL} alt="Shoes" /></figure>
                             <div className="card-body">
-                                <h2 className="card-title underline">{queries.productName}:</h2>
-                                <h2 className="">{queries.queryTitle} <span className="text-[#135D66]">See Details...</span></h2>
-                                <div className="my-2">
-                                    {/* recommendation modal start  */}
-                                    <div className="indicator">
-                                        <span className="indicator-item badge text-white bg-[#135D66]">{queries.recommendationCount}</span>
-                                        <button onClick={() => window[`my_modal_${queries._id}`].showModal()} className="btn btn-sm w-36">
-                                            <FaRegCommentDots />
-                                            <span className="text-xs">Recommendation</span>
-                                        </button>
-                                    </div>
-                                    <dialog id={`my_modal_${queries._id}`} className="modal">
-                                        <div className="modal-box">
-                                            <Recommendation id={queries._id}></Recommendation>
-                                            <div className="modal-action">
-                                                <form method="dialog">
-                                                    <button className="btn">Close</button>
-                                                </form>
-                                            </div>
+                                <h2 className="card-title font-bold">{queries.productName}</h2>
+                                <h2 className="">{queries.queryTitle}
+                                    {/* see details modal start  */}
+                                    <div className="my-2">
+                                        <div className="">
+                                            <button onClick={() => window[`my_modal_details_${queries._id}`].showModal()} className="text-sm">
+                                                <span className="text-blue-500">See Details...</span>
+                                            </button>
                                         </div>
-                                    </dialog>
-                                    {/* recommendation modal end  */}
+                                        <dialog id={`my_modal_details_${queries._id}`} className="modal">
+                                            <div className="modal-box p-0 md:p-6">
+                                            <form method="dialog">
+                                                    <button className="btn btn-sm bg-gray-100 btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                                </form>
+                                                <QuerieDetails id={queries._id}></QuerieDetails>
+                                            </div>
+                                        </dialog>
+                                    </div>
+                                    {/* see details modal end  */}                                </h2>
+                                <div className="flex flex-wrap justify-between">
+                                    {/* recommendations modal start  */}
+                                    <div className="my-2">
+                                        <div className="indicator">
+                                            <span className="indicator-item badge text-white bg-[#135D66]">{queries.recommendationCount}</span>
+                                            <button onClick={() => window[`my_modal_${queries._id}`].showModal()} className="btn btn-sm w-36">
+                                                <FaRegComments />
+                                                <span className="text-xs">Recommendation</span>
+                                            </button>
+                                        </div>
+                                        <dialog id={`my_modal_${queries._id}`} className="modal">
+                                            <div className="modal-box">
+                                            <form method="dialog">
+                                                    <button className="btn btn-sm bg-gray-100 btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                                </form>
+                                                <Recommendation id={queries._id}></Recommendation>
+                                            </div>
+                                        </dialog>
+                                    </div>
+                                    {/* recommendations modal end  */}
 
-                                </div>
-                                <div className="flex justify-end items-center gap-3">
-                                    <Link className="w-full" to={`/recommend/${queries._id}`}><button className="btn btn-sm w-36">
-                                        <FaRegComment />
-                                        <span className="text-xs">Recommend</span>
-                                    </button></Link>
+
+                                    {/* recommend modal start  */}
+                                    <div className="my-2">
+                                        <div className="">
+                                            <button onClick={() => window[`my_modal_Recommend_${queries._id}`].showModal()} className="btn btn-sm w-36">
+                                                <FaRegComment />
+                                                <span className="text-xs">Recommend</span>
+                                            </button>
+                                        </div>
+                                        <dialog id={`my_modal_Recommend_${queries._id}`} className="modal">
+                                            <div className="modal-box">
+                                                <form method="dialog">
+                                                    <button className="btn btn-sm bg-gray-100 btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                                </form>
+                                                <Recommend refetch={refetch} id={queries._id}></Recommend>
+                                            </div>
+                                        </dialog>
+                                    </div>
+                                    {/* recommend modal end  */}
                                 </div>
                             </div>
                         </div>

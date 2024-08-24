@@ -1,33 +1,38 @@
-import { useLoaderData } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import Img from "../assets/image/user.avif"
 
-const QuerieDetails = () => {
-    let queries = useLoaderData()
-    let {productBrand, productName, queryTitle, boycottingDetails, imageURL,DateTime, recommendationCount, name, userImge} = queries
+const QuerieDetails = ({ id }) => {
+
+    const { data: querieDetails = [] } = useQuery({
+        queryKey: ["querieDetails", id],
+        queryFn: async () => {
+            const res = await axios.get(`http://localhost:5000/queries/${id}`)
+            return res.data
+        }
+    })
+
+    const { imageURL, productName, queryTitle, boycottingDetails, productBrand, userImge, name, DateTime, } = querieDetails
+
     return (
         <div>
-           <div className="card card-side h-full p-4 md:p-7 flex flex-col md:flex-row items-center gap-8 bg-[#ebe9e2] bg-opacity-40 w-[95%] md:w-[80%] mx-auto px-4 my-4 md:my-28">
-                <figure className="w-[80%] rounded-xl"><img className="min-w-2xl" src={imageURL} alt="Movie" /></figure>
-
-                <div className='space-y-1'>
-                    <p className='font-semibold text-gray-600 text-2xl underline'>{productName}</p>
-                    <p className='font-semibold text-gray-600 text-2xl'>{queryTitle}</p>
-                    <p className='font-semibold text-gray-600'><span className='font-normal'>{boycottingDetails}</span></p>
-                    <p className='font-semibold text-gray-600'>Brand : <span className='font-normal'>{productBrand}</span></p>
+            <div className="flex flex-col max-w-lg p-6 space-y-6 overflow-hidden rounded-lg">
+                <div className="flex items-center gap-4 mt-2 mb-6 pl-3">
+                    <img className="w-10 h-10 rounded-full" src={userImge ? userImge : Img} alt="" />
                     <div>
-                    <div className="flex justify-between items-center mt-5">
-                        <div className="flex justify-between items-center gap-4">
-                            <img className="w-10 h-10 rounded-full" src={userImge} alt="" />
-                            <div>
-                                <p className="font-semibold ">{name}</p>
-                                <p className="text-sm text-gray-500">{DateTime}</p>
-                            </div>
-                        </div>
-                        <p>Recommendation: {recommendationCount}</p>
-                    </div>
-
+                        <p className="font-semibold ">{name}</p>
+                        <p className="text-sm text-gray-500">{DateTime}</p>
                     </div>
                 </div>
-            </div>     
+                <div>
+                    <img src={imageURL} alt="" className="object-cover w-full mb-4 h-60 sm:h-96 dark:bg-gray-500 rounded-xl" />
+                    <p className="text-blue-500 uppercase">{productBrand}</p>
+                    <h2 className="mb-3 text-xl font-bold">{productName}</h2>
+                    <p className="mb-3 text-[18px] font-semibold dark:text-gray-600">{queryTitle}</p>
+                    <p className="mb-7 text-sm dark:text-gray-600">{boycottingDetails}</p>
+                </div>
+
+            </div>
         </div>
     );
 };
