@@ -40,7 +40,7 @@ const Queries = () => {
                 <div className="hero-overlay bg-gradient-to-r from-[#151515] to-[rgb(21,21,21,0) py-60 md:py-80"></div>
                 <div className=" w-[95%] md:w-[85%] mx-auto text-neutral-content">
                     <div className="md:w-[50%]">
-                        <h1 className="mb-5 text-4xl md:5xl lg:text-6xl text-center md:text-start font-bold font mt-4">Empower Your Tech Choices: Find Alternatives with ElectroEvo</h1>
+                        <h1 className="mb-5 text-4xl md:5xl lg:text-6xl text-center md:text-start font-bold font mt-4">Discover Smarter Tech Solutions: Explore Alternatives with ElectroEvo</h1>
                     </div>
                 </div>
             </div>

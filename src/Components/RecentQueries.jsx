@@ -21,9 +21,8 @@ const RecentQueries = () => {
 
     return (
         <div>
-            <div className="w-[95%] md:w-[70%] lg:w-[50%] mx-auto text-center my-16 mb-20">
-                <h1 className="font-bold text-4xl mb-2">Latest Product Queries</h1>
-                <p className="text-gray-500">Explore the latest inquiries and discussions surrounding electronic products. Stay informed about what others are curious about and join the conversation to discover alternative options and recommendations.</p>
+            <div className="w-[95%] md:w-[85%] mx-auto mb-5 border-gray-700 border-l-8 px-4 py-2">
+                <h1 className="font-bold text-4xl md:text-5xl mb-2 text-gray-700">Latest Product Queries</h1>
             </div>
 
             <div className="w-[95%] md:w-[85%] mx-auto my-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
