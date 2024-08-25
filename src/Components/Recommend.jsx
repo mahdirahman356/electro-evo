@@ -15,7 +15,7 @@ const Recommend = ({ id, refetch }) => {
     const { data: querieDetails = {} } = useQuery({
         queryKey: ["querieDetails", id],
         queryFn: async () => {
-            const res = await axios.get(`http://localhost:5000/queries/${id}`)
+            const res = await axios.get(`https://electro-evo-server.vercel.app/queries/${id}`)
             return res.data
         }
     })
@@ -42,9 +42,9 @@ const Recommend = ({ id, refetch }) => {
         let recommend = { queriesId: _id, recomProductName, authURL: userImge, recomTitle, recomProductImage, recomReason, queryTitle, productName, name, email, TimeStamp, recommendationEmail: user.email, recommendationName: user.displayName, recommendationAuthURL: user.photoURL }
         console.log(recommend)
         try {
-            const res = await axios.post('http://localhost:5000/recommend', recommend);
+            const res = await axios.post('https://electro-evo-server.vercel.app/recommend', recommend);
             if (res.data.acknowledged) {
-                const updateRes = await axios.patch(`http://localhost:5000/queries/${_id}`);
+                const updateRes = await axios.patch(`https://electro-evo-server.vercel.app/queries/${_id}`);
                 if (updateRes.data.modifiedCount > 0) {
                     form.reset();
                     Swal.fire({

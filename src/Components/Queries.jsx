@@ -16,7 +16,7 @@ const Queries = () => {
     const { data: allQueries = [], refetch, isLoading } = useQuery({
         queryKey: ["allQueries", search],
         queryFn: async () => {
-            const res = await axios.get(`http://localhost:5000/queries?search=${search}`)
+            const res = await axios.get(`https://electro-evo-server.vercel.app/queries?search=${search}`)
             const sortedQueries = res.data.sort((a, b) => new Date(b.DateTime) - new Date(a.DateTime))
             return sortedQueries
         }

@@ -26,7 +26,7 @@ const Login = () => {
                     icon: 'success',
                     confirmButtonText: 'Cool'
                   })
-                  axios.post("http://localhost:5000/jwt", user, {withCredentials: true})  
+                  axios.post("https://electro-evo-server.vercel.app/jwt", user, {withCredentials: true})  
                   .then(data => {
                      console.log(data.data)
                      navigate('/')
@@ -54,7 +54,7 @@ const Login = () => {
                 icon: 'success',
                 confirmButtonText: 'Cool'
               })
-              axios.post("http://localhost:5000/jwt", user, {withCredentials: true})  
+              axios.post("https://electro-evo-server.vercel.app/jwt", user, {withCredentials: true})  
                   .then(data => {
                      console.log(data.data)
                   })  

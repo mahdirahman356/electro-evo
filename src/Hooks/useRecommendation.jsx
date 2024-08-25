@@ -6,7 +6,7 @@ const useRecommendation = () => {
     const { refetch: refetchRecommendation, data: recom = [] } = useQuery({
         queryKey: ["recom"],
         queryFn: async () => {
-            const res = await axios.get(`http://localhost:5000/recommend`)
+            const res = await axios.get(`https://electro-evo-server.vercel.app/recommend`)
             return res.data
         }
     })

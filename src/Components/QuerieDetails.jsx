@@ -7,7 +7,7 @@ const QuerieDetails = ({ id }) => {
     const { data: querieDetails = [] } = useQuery({
         queryKey: ["querieDetails", id],
         queryFn: async () => {
-            const res = await axios.get(`http://localhost:5000/queries/${id}`)
+            const res = await axios.get(`https://electro-evo-server.vercel.app/queries/${id}`)
             return res.data
         }
     })

@@ -8,7 +8,7 @@ const Recommendation = ({id}) => {
     const { data: recom = [], isLoading } = useQuery({
         queryKey: ["recom", id],
         queryFn: async () => {
-            const res = await axios.get(`http://localhost:5000/recommend/${id}`)
+            const res = await axios.get(`https://electro-evo-server.vercel.app/recommend/${id}`)
             return res.data
         }
     })
