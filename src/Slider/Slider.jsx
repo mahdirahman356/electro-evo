@@ -22,7 +22,6 @@ const Slider = () => {
             delay: 2500,
             disableOnInteraction: false,
           }}
-        navigation={true}
         pagination={{
           clickable: true,
         }}
@@ -30,7 +29,7 @@ const Slider = () => {
         className="mySwiper"
         >
             <SwiperSlide>
-                <div className="hero bg-cover bg-center" style={{ backgroundImage: `url(${slider1})` }}>
+                <div className="hero min-h-screen bg-cover bg-center" style={{ backgroundImage: `url(${slider1})` }}>
                     <div className="hero-overlay bg-gradient-to-r from-[#151515] to-[rgb(21,21,21,0) py-60 md:py-80"></div>
                     <div className=" w-[95%] md:w-[85%] mx-auto text-neutral-content">
                         <div className="md:w-[50%]">
@@ -40,7 +39,7 @@ const Slider = () => {
                 </div>
             </SwiperSlide>
             <SwiperSlide>
-            <div className="hero bg-cover bg-center" style={{ backgroundImage: `url(${slider2})` }}>
+            <div className="hero min-h-screen bg-cover bg-center" style={{ backgroundImage: `url(${slider2})` }}>
                     <div className="hero-overlay bg-gradient-to-r from-[#151515] to-[rgb(21,21,21,0) py-60 md:py-80"></div>
                     <div className=" w-[95%] md:w-[85%] mx-auto text-neutral-content">
                     <div className="md:w-[50%]">
@@ -50,7 +49,7 @@ const Slider = () => {
                 </div>
             </SwiperSlide>
             <SwiperSlide>
-            <div className="hero bg-cover bg-center" style={{ backgroundImage: `url(${slider3})` }}>
+            <div className="hero min-h-screen bg-cover bg-center" style={{ backgroundImage: `url(${slider3})` }}>
                     <div className="hero-overlay bg-gradient-to-r from-[#151515] to-[rgb(21,21,21,0) py-60 md:py-80"></div>
                     <div className=" w-[95%] md:w-[85%] mx-auto text-neutral-content">
                     <div className="md:w-[50%]">
@@ -60,7 +59,7 @@ const Slider = () => {
                 </div>
             </SwiperSlide>
             <SwiperSlide>
-            <div className="hero bg-cover bg-center" style={{ backgroundImage: `url(${slider4})` }}>
+            <div className="hero min-h-screen bg-cover bg-center" style={{ backgroundImage: `url(${slider4})` }}>
                     <div className="hero-overlay bg-gradient-to-r from-[#151515] to-[rgb(21,21,21,0) py-60 md:py-80"></div>
                     <div className=" w-[95%] md:w-[85%] mx-auto text-neutral-content">
                     <div className="md:w-[50%]">
